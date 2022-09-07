@@ -1,9 +1,10 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux'
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {AuthActionsType, authReducer} from './reucers/authReducer';
 
 const rootReducer = combineReducers({
-
+    auth: authReducer
 })
 
 // @ts-ignore
@@ -12,14 +13,12 @@ const rootReducer = combineReducers({
 export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
-export type AppRootActionType = any
+export type AppRootActionType = AuthActionsType
 
-export type ThunkApp<ReturnType = void> = ThunkAction<
-    ReturnType,
+export type ThunkApp<ReturnType = void> = ThunkAction<ReturnType,
     AppRootStateType,
     unknown,
-    AppRootActionType
-    >;
+    AppRootActionType>;
 
 export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, AppRootActionType>;
 
